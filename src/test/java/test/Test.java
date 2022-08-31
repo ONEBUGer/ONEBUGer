@@ -20,5 +20,12 @@ public class Test {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put(split[0], split[1]);
         System.out.println(hashMap);
+
+        String str1 = "/carImage/1.jpg";
+        String s = str1.replaceAll("/", "//");
+        System.out.println(s);
+
+        String s1 = "/carImage//carImage/1.jpg";
+        System.out.println(s1.substring(10));
     }
 }

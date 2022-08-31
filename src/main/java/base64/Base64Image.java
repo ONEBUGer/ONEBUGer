@@ -6,6 +6,7 @@ import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import java.io.*;
+import java.util.Base64;
 
 /**
  * @author: 程彬彬
@@ -147,11 +148,44 @@ public class Base64Image {
         }
     }
 
-    @Value("${web.service-url:D}")
-    private static String str;
+
     public static void main(String[] args) {
-        String fileName = "\\carImage\\31\\58_50176.jpg";
-        String s = GetImageStr(str + fileName);
+//        String str = "http://127.0.0.1:9094/carImage/5.jpg";
+//        String s = GetImageStr(str).replaceAll("\\r\\n","");
+////        String s = GetImageStr(str);
+//        System.out.println(s);
+
+        String fileNameOld = "C:\\Users\\ZhengChangBing\\parking-guidance" + "/carImage/5.jpg";
+        String s = GetImageStr(fileNameOld);
         System.out.println(s);
+
+        String fileName = "C:\\Users\\ZhengChangBing\\parking-guidance\\carImage\\5.jpg";
+        InputStream in = null;
+        byte[] data = null;
+        byte[] results = null;
+        try {
+            in = new FileInputStream(fileName);
+            data = new byte[in.available()];
+            System.out.println(data.length);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != in) {
+                try {
+//                    in.read(data);
+                    while (in.read(data) != -1) {
+                        results = data;
+                    }
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        Base64.Encoder encoder = Base64.getEncoder();
+        String result = encoder.encodeToString(results);
+        System.out.println(result);
     }
 }
